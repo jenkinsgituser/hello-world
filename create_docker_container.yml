@@ -7,7 +7,9 @@
      - name: remove stopped container
        shell: docker rm -f valaxy_demo	  
      - name: remove docker images
-       shell: docker image rm -f valaxy/valaxy_demo
-       
+       shell: docker image rm -f kumaricss1/valaxy_demo
+     - name: remove docker images
+       shell: docker image rm -f valax/valaxy_demo
+
      - name: create docker image
-       shell: docker run -d --name valaxy_demo -p 8090:8080 valaxy/valaxy_demo
+       shell: docker run -d --name valaxy_demo -p 8090:8080 Kumaricss1/valaxy_demo
