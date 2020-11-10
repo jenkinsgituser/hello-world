@@ -1,29 +1,6 @@
 ---
-  - hosts: docker
-    become: true
-    tasks:
-     - name: stop previous version docker
-       shell: docker stop valaxy_demo
-     - name: remove stopped container
-       shell: docker rm -f valaxy_demo	  
-     - name: remove docker images
-       shell: docker image rm -f kumaricss1/valaxy_demo
-     - name: remove docker images
-       shell: docker image rm -f valax/valaxy_demo
-     - name: remove docker images
-       shell: docker image rm -f valaxy_demo  
-     - name: Copy docerfile into docker host
-       copy:
-         src: /opt/ansible/docker/tomcat
-         dest: /opt/docker
-     - name: cd to Dockerfile path
-       shell: cd /opt/docker
-     - name: build docker image
-       shell: docker build -t valaxy_demo .
-     - name: tag docker image
-       shell: docker tag valaxy_demo kumaricss1/valaxy_demo
-     - name: push docker image
-       shell: docker push kumaricss1/valaxy_demo
-
-     - name: create docker image
-       shell: docker run -d --name valaxy_demo -p 9090:8080 kumaricss1/valaxy_demo
+ - hosts: docker
+   become: true
+   tasks:
+   - name: create docker image
+     shell: docker run -d --name valaxy_demo -p 8080:8080 kumaricss1/valaxy_demo
