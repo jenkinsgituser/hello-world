@@ -3,4 +3,4 @@
    become: true
    tasks:
    - name: create docker image
-     shell: docker run -d --name valaxy_demo -p 8080:8080 kumaricss1/valaxy_demo
+     shell: docker run -d --name valaxy_demo -p 8080:8080 kumaricss1/$JOB_NAME:latest
