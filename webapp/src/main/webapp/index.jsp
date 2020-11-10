@@ -3,3 +3,4 @@
 <p> GIT+Jenkins+Ansible+Docker with tomcat </p>
 <p> One Test with JOB_NAME </p>
 <p> Second Test with JOB_NAME:BUILD_ID </p>
+<p> Third Test with JOB_NAME:latest </p>
