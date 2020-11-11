@@ -1,0 +1,58 @@
+---
+  - name: Install and configure tomcat
+    hosts: tomcat
+    gather_facts: true
+    vars:
+      req_java: java-1.8.0-openjdk
+      set_java: jre-1.8.0-openjdk
+      req_tomcat_ver: 9.0.38
+      tomcat_url: http://apachemirror.wuchna.com/tomcat/tomcat-{{req_tomcat_ver.split('.')[0]}}/v{{req_tomcat_ver}}/bin/apache-tomcat-{{req_tomcat_ver}}.tar.gz
+      tomcat_port: 9090
+    become: yes
+    tasks:
+      - name: 1.Updating repos
+        yum:
+          name: "*"
+          state: latest
+      - name: 2.Installing required java
+        yum:
+          name: "{{req_java}}"
+          state: present
+      - name: 3.Setting default java
+        alternatives:
+          name: java
+          link: /usr/bin/java
+          path: /usr/lib/jvm/{{set_java}}/bin/java
+      - name: 3.Getting URL details
+        debug:
+          msg: 
+          - "The Mentioned URL is: {{tomcat_url}}"
+      - name: 4.Downloading required tomcat
+        get_url:
+          url: "{{tomcat_url}}"
+          dest: /opt/
+          remote_src: yes
+        become: yes  
+      - name: 5.Extracting downloaded tomcat
+        unarchive:
+          src: "/opt/apache-tomcat-{{req_tomcat_ver}}.tar.gz"
+          dest: /opt/
+          remote_src: yes
+        become: yes
+      - name: 6.Renaming tocmcat home
+        command: mv /opt/apache-tomcat-{{req_tomcat_ver}} /opt/tomcat{{req_tomcat_ver.split('.')[0]}}
+      - name: 7.Replacing default port with required port
+        template:
+          src: server.xml.j2
+          dest: /opt/tomcat{{req_tomcat_ver.split('.')[0]}}/conf/server.xml
+          mode: 0766
+        become: yes  
+      - name: 8. Enabling {{tomcat_port}} tcp port
+        firewalld: port={{tomcat_port}}/tcp permanent=true state=enabled
+      - name: 9.Starting tomcat
+        shell:  nohup /opt/tomcat{{req_tomcat_ver.split('.')[0]}}/bin/startup.sh &
+      - name: 10.Restart service 
+        systemd:
+          state: restarted
+          daemon_reload: yes
+          name: firewalld 
