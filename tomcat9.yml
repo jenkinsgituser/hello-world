@@ -1,5 +1,5 @@
 ---
-  - name: Install and configure tomcat
+  - name: Install tomcat server and configure and deploying war file
     hosts: tomcat
     gather_facts: true
     vars:
