@@ -18,11 +18,6 @@
         yum:
           name: "{{req_java}}"
           state: present
-      - name: 3.Setting default java
-        alternatives:
-          name: java
-          link: /usr/bin/java
-          path: /usr/lib/jvm/{{set_java}}/bin/java
       - name: 3.Getting URL details
         debug:
           msg: 
