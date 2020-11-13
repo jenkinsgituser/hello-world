@@ -11,12 +11,12 @@
 
   - name: remove docker container
     docker_container:
-      name: compledoker:latest
+      name: completedoker:latest
       state: absent
       
   - name: remove docker image
     docker_image:
-      name: compledoker:latest
+      name: completedoker:latest
       state: abesent
       
   - name: create build directory
@@ -42,14 +42,14 @@
       mode: '0644'
   - name: build docker image
     docker_image:
-      name: compledoker
+      name: completedoker
       state: present
       path: /opt/ansible/docker/tomcat/
       tag: latest
 
   - name: Create a docker container
     docker_container:
-      name: containername
-      image: compledoker:latest
+      name: completedoker:latest
+      image: completedoker:latest
       ports:
         - "8080:8080"
