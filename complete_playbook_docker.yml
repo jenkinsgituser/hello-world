@@ -4,9 +4,6 @@
   become: yes
   become_user: ansadmin
   tasks:
-#  - name: Create a image based on Dockerfile
-#    shell: docker build -t compledoker .
-  
   - name: Stop a container
     docker_container:
     name: compledoker
@@ -53,8 +50,9 @@
       ports:
         - "8080:8080"
         
+#  - name: Create a image based on Dockerfile
+#    shell: docker build -t compledoker .
 #  - name: run docker image
 #    shell: docker run -d --name valaxy_demo -p 8080:8080 compledoker:v1.0
-    
 #   - name: run docker image
 #    shell: docker run -d --name valaxy_demo -p 8080:8080 kumaricss1/{{ JOB_NAME }}:latest   
