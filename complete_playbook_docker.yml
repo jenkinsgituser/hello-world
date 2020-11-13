@@ -4,8 +4,8 @@
   become: yes
   become_user: ansadmin
   tasks:
-  - name: Create a image based on Dockerfile
-    shell: docker build -t compledoker .
+#  - name: Create a image based on Dockerfile
+#    shell: docker build -t compledoker .
   
   - name: Stop a container
     docker_container:
@@ -31,23 +31,13 @@
       owner: ansadmin
       group: ansadmin
       mode: '0644'
-    
-    
-    - name: copy completedocer playbook
+  - name: copy completedocer playbook
     copy:
-      src: ./webapp/target/*.war
-      dest: /root/completedocker/*.war
+      src: ./webapp.war
+      dest: /root/completedocker/webapp.war
       owner: ansadmin
       group: ansadmin
       mode: '0644'  
-  - name: copy completedocer playbook
-    copy:
-      src: ./complete_playbook_docker.yml
-      dest: /root/completedocker/complete_playbook_docker.yml
-      owner: ansadmin
-      group: ansadmin
-      mode: '0644'
-      
   - name: build container image
     docker_image:
         name: compledoker:v1.0
