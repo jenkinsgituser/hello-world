@@ -2,5 +2,14 @@
  - hosts: docker
    become: true
    tasks:
+   - name: stop docker container
+     shell: docker stop kumaricss1/{{ JOB_NAME }}:latest
+     
+   - name: remove docker container
+     shell: docker rm -f kumaricss1/{{ JOB_NAME }}:latest
+     
+   - name: remove docker image
+     shell: docker rmi -f kumaricss1/{{ JOB_NAME }}:latest
+     
    - name: create docker image
-     shell: docker run -d --name valaxy_demo -p 8080:8080 kumaricss1/{{ JOB_NAME }}:latest
+     shell: docker run -d --name kumaricss1/{{ JOB_NAME }}:latest -p 8080:8080 kumaricss1/{{ JOB_NAME }}:latest
