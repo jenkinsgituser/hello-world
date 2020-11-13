@@ -9,11 +9,16 @@
 #      name: compledoker:latest
 #      state: stopped
 
-  - name: remove container
+  - name: remove docker container
     docker_container:
       name: compledoker:latest
       state: absent
-
+      
+  - name: remove docker image
+    docker_image:
+      name: compledoker:latest
+      state: abesent
+      
   - name: create build directory
     file:
       path: /opt/ansible/docker/tomcat
