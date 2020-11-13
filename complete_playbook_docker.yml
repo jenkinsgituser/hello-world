@@ -11,14 +11,14 @@
 
   - name: remove docker container
     docker_container:
-      name: completedoker:latest
+      name: completedoker
       state: absent
-      
+
   - name: remove docker image
     docker_image:
       name: completedoker:latest
       state: absent
-      
+
   - name: create build directory
     file:
       path: /opt/ansible/docker/tomcat
@@ -49,7 +49,7 @@
 
   - name: Create a docker container
     docker_container:
-      name: completedoker:latest
+      name: completedoker
       image: completedoker:latest
       ports:
         - "8080:8080"
